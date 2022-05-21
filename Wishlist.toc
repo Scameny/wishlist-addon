@@ -1,0 +1,11 @@
+## Interface: 20502
+## Title: Wishlist
+## Author: Scameny
+## Version: 0.1
+
+WishlistLocales/i10n.lua
+WishlistLocales/Locale_enGB.lua
+
+Wishlist.lua
+WishlistEvents.lua
+Wishlist.xml
