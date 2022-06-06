@@ -1,6 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
     
-    <Button name="WishlistItemSlotButton" inherits="ItemButtonTemplate" virtual="true">
+    <Button name="WishlistItemSlotButton" inherits="DefaultWishlistItemButton" virtual="true">
         <Scripts>
             <OnMouseDown>
                 WishlistItemSlotButton_OnMouseDown(self);
@@ -8,6 +8,25 @@
             <OnLoad>
                 WishlistItemSlotButton_OnLoad(self);
             </OnLoad>
+            <NormalTexture file="Interface\Buttons\UI-Quickslot2">
+                <Size>
+                    <AbsDimension x="64" y="64"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="CENTER">
+                        <Offset>
+                            <AbsDimension x="0" y="-1"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+		    </NormalTexture>
+        </Scripts>
+        
+    </Button>
+
+
+    <Button name="DefaultWishlistItemButton" inherits="ItemButtonTemplate" virtual="true">
+        <Scripts>
             <OnUpdate>
 				CursorOnUpdate(self);
 				if ( GameTooltip:IsOwned(self) ) then
@@ -20,31 +39,8 @@
             <OnLeave>
 				GameTooltip:Hide();
 				ResetCursor();
-			</OnLeave> 
-         <!--   
-             <OnEvent> 
-				InspectPaperDollItemSlotButton_OnEvent(self, event, ...);
-			</OnEvent>
-            <OnClick>
-				InspectPaperDollItemSlotButton_OnClick(self, button);
-			</OnClick>
-			
-            
-            
-            -->
+			</OnLeave>
         </Scripts>
-		<NormalTexture file="Interface\Buttons\UI-Quickslot2">
-			<Size>
-				<AbsDimension x="64" y="64"/>
-			</Size>
-			<Anchors>
-				<Anchor point="CENTER">
-					<Offset>
-						<AbsDimension x="0" y="-1"/>
-					</Offset>
-				</Anchor>
-			</Anchors>
-		</NormalTexture>
     </Button>
 
     
@@ -79,14 +75,115 @@
                     <Anchor point="BOTTOM" x="40" y="10"/>
 			    </Anchors>
 		    </Button>
+            <Button name="WishlistGloves" inherits="WishlistItemSlotButton">
+                <Anchors>
+                    <Anchor point="TOPRIGHT" x="-12" y="-30"/>
+			    </Anchors>
+		    </Button>
         </Frames>
 	</Frame>
 
-    <Frame name="NewWishedItemList" setAllPoints="true" inherits="BasicFrameTemplateWithInset" movable="true" enableMouse="true" virtual="true">
+    <Frame name="WishlistItemSearchList" hidden="true" setAllPoints="true" inherits="BasicFrameTemplateWithInset" movable="true" enableMouse="true">
         <Scripts>
+            <OnLoad>
+                self:RegisterForDrag("LeftButton");
+            </OnLoad>
+            <OnDragStart>self:StartMoving();</OnDragStart>
+            <OnDragStop>self:StopMovingOrSizing();</OnDragStop>
         </Scripts>
         <Size>
-            <AbsDimension x="200" y="200" />
+            <AbsDimension x="250" y="300" />
         </Size>
+        <Anchors>
+            <Anchor point ="CENTER"/>
+        </Anchors>
+        <Frames>
+			<Frame name="WishlistSearchFrame" enableMouse="true" setAllPoints="true">
+				<Size>
+					<AbsDimension x="240" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOP">
+						<Offset x="0" y="-30"/>
+					</Anchor>
+				</Anchors>
+					<Frames>
+						<EditBox name="WishlistItemSearchBox" autoFocus="false">
+							<Size>
+								<AbsDimension x="165" y="20"/>
+							</Size>
+							<Anchors>
+								<Anchor point="LEFT">
+									<Offset x="10" y="0"/>
+								</Anchor>
+							</Anchors>
+							<Layers>
+								<Layer level="BACKGROUND">
+									<Texture name="$parentLeft" file="Interface\Common\Common-Input-Border">
+										<Size>
+											<AbsDimension x="8" y="20"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOPLEFT">
+												<Offset x="-5" y="0"/>
+											</Anchor>
+										</Anchors>
+										<TexCoords left="0" right="0.0625" top="0" bottom="0.625"/>
+									</Texture>
+									<Texture name="$parentRight" file="Interface\Common\Common-Input-Border">
+										<Size>
+											<AbsDimension x="8" y="20"/>
+										</Size>
+										<Anchors>
+											<Anchor point="RIGHT">
+												<Offset x="0" y="0"/>
+											</Anchor>
+										</Anchors>
+										<TexCoords left="0.9375" right="1.0" top="0" bottom="0.625"/>
+									</Texture>
+									<Texture name="$parentMiddle" file="Interface\Common\Common-Input-Border">
+										<Size>
+											<AbsDimension x="0" y="20"/>
+										</Size>
+										<Anchors>
+											<Anchor point="LEFT" relativeTo="$parentLeft" relativePoint="RIGHT"/>
+											<Anchor point="RIGHT" relativeTo="$parentRight" relativePoint="LEFT"/>
+										</Anchors>
+										<TexCoords left="0.0625" right="0.9375" top="0" bottom="0.625"/>
+									</Texture>
+								</Layer>
+							</Layers>
+							<Scripts>
+								<OnShow>
+								</OnShow>
+								<OnEnterPressed>
+									self:ClearFocus();
+								</OnEnterPressed>
+								<OnEscapePressed>
+									self:ClearFocus();
+								</OnEscapePressed>
+								<OnEditFocusLost>
+								</OnEditFocusLost>
+								<OnEditFocusGained>
+								</OnEditFocusGained>
+							</Scripts>
+							<FontString inherits="ChatFontSmall"/>
+						</EditBox>
+						<Button name="WishlistSearchButton" text="SEARCH" inherits="UIPanelButtonTemplate">
+							<Anchors>
+								<Anchor point="RIGHT" x="60" y="0" relativeTo="WishlistItemSearchBox" relativePoint="RIGHT" />
+							</Anchors>
+							<Size>
+								<AbsDimension x="60" y="20" />
+							</Size>
+							<Scripts>
+								<OnClick>
+									SearchItemsForOneSlot(self)
+								</OnClick>
+							</Scripts>
+						</Button>
+					</Frames>
+				</Frame>
+        </Frames>
     </Frame>
 </Ui>

@@ -3,9 +3,11 @@
 ## Author: Scameny
 ## Version: 0.1
 
+Wishlist.lua
+
 WishlistLocales/i10n.lua
 WishlistLocales/Locale_enGB.lua
 
-Wishlist.lua
 WishlistEvents.lua
+WishlistButtons.xml
 Wishlist.xml

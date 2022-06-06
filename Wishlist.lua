@@ -1,20 +1,30 @@
-local Wishlist = {}
+Wishlist = {}
 
-_G.Wishlist = Wishlist;
+Wishlist.i10n = {}
 
 Wishlist.UserData = { -- user wishlist
 	items = {
         Mainhand = {7080},
         Offhand = {8088},
-        SpecialWeapon = {33974}
+        SpecialWeapon = {33974},
+        Gloves = {}
     }
 }
 
+Wishlist.Items = {
+    Gloves = {
+        34370,
+        34366,
+        34372,
+        34406
+    }
+}
 
 Wishlist.SlotInfo = {
     WishlistMainhand = "Mainhand",
     WishlistOffhand = "Offhand",
     WishlistSpecialWeapon = "SpecialWeapon",
+    WishlistGloves = "Gloves",
 }
 
 
@@ -42,11 +52,8 @@ loader:SetScript("OnEvent", WishlistInitialization);
 function Wishlist.WishlistInitialization()
     print("Setting up locale")
     local gameLocale = GetLocale();
-    local addonLocale = i10n.GetLocalization(gameLocale);
-    Wishlist.locale = addonLocale;
+    Wishlist.i10n.SetLocale(gameLocale);
 end
-
-Wishlist.WishlistInitialization();
 
 -- UIConfig.Title = UIConfig:CreateFontString(nil, "Wishlist_MainFrame_Title", "GameFontHighlight")
 -- UIConfig.Title:SetPoint("LEFT", UIConfig.TitleBg, "LEFT", 5, 0)
