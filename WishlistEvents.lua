@@ -46,22 +46,33 @@ function WishlistItemSlotButton_OnMouseDown(self)
 
 end
 
+local function IsEmpty(s)
+    return s == nil or s == ''
+end
+
 function SearchItemsForOneSlot(self)
-    local text = WishlistItemSearchBox:GetText()
+    local keywords = WishlistItemSearchBox:GetText()
     local slotName = Wishlist.SlotInfo[self:GetParent():GetParent():GetParent():GetName()];
-    for index, itemId in ipairs(Wishlist.Items[slotName]) do
+    for i=0, 5, 1 do
+        local itemId = Wishlist.Items[slotName][i]
+        if (!itemId) then
+            return
+        end
         local itemToLoad = Item:CreateFromItemID(itemId);
         itemToLoad:ContinueOnItemLoad(function()
-            local children = { WishlistItemSearchList:GetChildren() }
-            local numChilds = WishlistItemSearchList:GetNumChildren();
-            local frame = CreateFrame("Frame", "WishlistSearchResultRow" .. tostring(index), WishlistItemSearchList, "WishlistNewItemRow")
-            frame:SetPoint("TOP", children[numChilds], "BOTTOM", 0, -6)
-            local item = frame:GetChildren();
-            item:SetID(itemId);
-            SetItemButtonTexture(item, itemToLoad:GetItemIcon());
-            SetItemButtonCount(item, 0);
-            if ( GameTooltip:IsOwned(item) ) then
-                GameTooltip:Hide();
+            if (IsEmpty(keywords) or string.find(itemToLoad:GetName(), keywords)) then
+                local children = { WishlistItemSearchList:GetChildren() }
+                local numChilds = WishlistItemSearchList:GetNumChildren();
+                --local frame = CreateFrame("Frame", "WishlistSearchResultRow" .. tostring(index), WishlistItemSearchList, "WishlistNewItemRow")
+                --frame:SetPoint("TOP", children[numChilds], "BOTTOM", 0, -3)
+                --frame:SetText(itemToLoad:GetName())
+                local item = frame:GetChildren();
+                item:SetID(itemId);
+                SetItemButtonTexture(item, itemToLoad:GetItemIcon());
+                SetItemButtonCount(item, 0);
+                if ( GameTooltip:IsOwned(item) ) then
+                    GameTooltip:Hide();
+                end
             end
         end)
     end

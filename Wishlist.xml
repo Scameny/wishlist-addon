@@ -182,7 +182,56 @@
 								</OnClick>
 							</Scripts>
 						</Button>
-					</Frames>
+						<Frame name="WishlistNewItemRow1" enableMouse="true" setAllPoints="true">
+							<Size>
+								<AbsDimension x="240" y="20"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset x="0" y="-30"/>
+								</Anchor>
+							</Anchors>
+						</Frames>
+						<Frame name="WishlistNewItemRow2" enableMouse="true" setAllPoints="true">
+							<Size>
+								<AbsDimension x="240" y="20"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset x="0" y="-30"/>
+								</Anchor>
+							</Anchors>
+						</Frames>
+						<Frame name="WishlistNewItemRow3" enableMouse="true" setAllPoints="true">
+							<Size>
+								<AbsDimension x="240" y="20"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset x="0" y="-30"/>
+								</Anchor>
+							</Anchors>
+						</Frames>
+						<Frame name="WishlistNewItemRow4" enableMouse="true" setAllPoints="true">
+							<Size>
+								<AbsDimension x="240" y="20"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset x="0" y="-30"/>
+								</Anchor>
+							</Anchors>
+						</Frames>
+						<Frame name="WishlistNewItemRow5" enableMouse="true" setAllPoints="true">
+							<Size>
+								<AbsDimension x="240" y="20"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset x="0" y="-30"/>
+								</Anchor>
+							</Anchors>
+						</Frames>
 				</Frame>
         </Frames>
     </Frame>
